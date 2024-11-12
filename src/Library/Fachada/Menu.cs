@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using ClassLibrary.Textos_para_Bot;
 using DefaultNamespace;
 using Ucu.Poo.Pokemon;
 
@@ -12,7 +13,7 @@ namespace Library.Combate
     //de Sustitución de Liskov (LSP) al permitir el uso de diferentes implementaciones de IMovimiento.
 
 
-    public class Menu
+    public class Menu:ITexto
     {
         private Batalla batallaActual;
         private StringBuilder textosaenviar;
@@ -259,6 +260,11 @@ namespace Library.Combate
                     textosaenviar.Append("Seleccione el pokemon correctamente");
                 }
             }
+        }
+
+        public StringBuilder EnviarTexto()
+        {
+            return this.textosaenviar;
         }
     }
 }

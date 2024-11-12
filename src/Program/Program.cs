@@ -21,7 +21,19 @@ namespace ConsoleApplication
         /// </summary>
         public static void Main()
         {
-            
+            Menu juego6 = new Menu();
+            juego6.UnirJugadores("Ash");
+            juego6.UnirJugadores("Red");
+            juego6.AgregarPokemonesA("Pikachu");
+            juego6.AgregarPokemonesD("Pidgey");
+            juego6.IniciarEnfrentamiento();
+            juego6.UsarMovimientos(1); //Pikachu usa royo
+            juego6.MostrarEstadoRival();
+            juego6.UsarMovimientos(3);
+            juego6.UsarMovimientos(2);
+            juego6.UsarMovimientos(2);
+            bool batallaganada = juego6.GetBatallaI() && juego6.GetBatallaT();
+            bool batallaganadasupuesta = true;
         }
     }
 }

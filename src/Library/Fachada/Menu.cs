@@ -111,17 +111,17 @@ namespace Library.Combate
                     {
                         Pokemon pokemon = jugadorAtacante.GetPokemonEnTurno();
                         jugadorAtacante.CambiarPokemon(pokemonElegido);
-                        Console.WriteLine($"El Pokémon {pokemonElegido.GetName()} ha entrado en combate y {pokemon.GetName()} ha sido guardado en su pokebola");
+                        ManejadorMensajes.Instance.LogMessage($"El Pokémon {pokemonElegido.GetName()} ha entrado en combate y {pokemon.GetName()} ha sido guardado en su pokebola");
                         batallaActual.AvanzarTurno();
                     }
                     else
                     {
-                        Console.WriteLine($"El Pokémon {pokemonElegido.GetName()} está debilitado y no puede entrar en combate");
+                        ManejadorMensajes.Instance.LogMessage($"El Pokémon {pokemonElegido.GetName()} está debilitado y no puede entrar en combate");
                     }
                 }
                 else
                 {
-                    Console.WriteLine("No tienes ese pokemon");
+                    ManejadorMensajes.Instance.LogMessage("No tienes ese pokemon");
                 }
             }
         }
@@ -130,7 +130,7 @@ namespace Library.Combate
         {
             if (batallaActual.GetBatallaIniciada())
             {
-                
+
                 Jugador jugadorAtacante = batallaActual.GetAtacante();
                 Pokemon pokemon = jugadorAtacante.GetPokemonEnTurno();
                 Console.WriteLine($"El Pokémon {pokemon.GetName()} tiene los siguientes movimientos:");
@@ -138,23 +138,26 @@ namespace Library.Combate
                 {
                     if (movimiento is IMovimientoEspecial especial && especial.GetUsadoAnteriormente())
                     {
-                        Console.WriteLine($"{movimiento.GetName()}(especial) no puede ser usado en este turno");
+                        ManejadorMensajes.Instance.LogMessage($"{movimiento.GetName()}(especial) no puede ser usado en este turno");
                     }
                     else
                     {
                         if (movimiento is IMovimientoEspecial movimientoEspecial)
                         {
-                            Console.WriteLine(movimientoEspecial.GetName(), "(especial)");
+                            ManejadorMensajes.Instance.LogMessage($"{movimientoEspecial.GetName()} (especial)");
                         }
                         else
                         {
-                            Console.WriteLine(movimiento.GetName());
+                            ManejadorMensajes.Instance.LogMessage(movimiento.GetName());
                         }
                     }
                 }
             }
+            else
+            {
+                ManejadorMensajes.Instance.LogMessage("La batalla no ha iniciado");
+            }
         }
-        
 
         public void UsarMovimientos(int numDeMovimiento)
         {

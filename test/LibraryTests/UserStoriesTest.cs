@@ -30,6 +30,7 @@ public class MenuTest
         menuPP.AgregarPokemonesA("Pikachu");
         menuPP.AgregarPokemonesD("Pidgey");
         menuPP.IniciarEnfrentamiento();
+        menuPP.GetHpDefensor();
         menuPP.UsarMovimientos(1); //Pikachu usa royo
         Assert.That(vidaesperada,Is.EqualTo(menuPP.GetHpAtacante())); // Verificar que la vida de Pidgey es 0
         Assert.That(80,Is.EqualTo(menuPP.GetHpDefensor())); // Verificar que Pikachu mantiene su HP

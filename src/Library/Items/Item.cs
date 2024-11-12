@@ -37,5 +37,5 @@ public abstract class Item
     /// Este método es abstracto y debe ser implementado en clases derivadas para aplicar el efecto específico de cada tipo de ítem.
     /// </summary>
     /// <param name="pokemon">El Pokémon al que se le aplicará el efecto del ítem.</param>
-    public abstract void AplicarEfecto(Pokemon pokemon);
+    public abstract string AplicarEfecto(Pokemon pokemon);
 }

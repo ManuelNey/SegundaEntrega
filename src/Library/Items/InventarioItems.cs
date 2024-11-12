@@ -38,12 +38,15 @@ public class InventarioItems
     /// <summary>
     /// Muestra en consola los ítems disponibles en el inventario y su cantidad.
     /// </summary>
-    public void MostrarItems() //Imprime en pantalla cuales items y cuantos de cada uno le queda al jugador 
+    public List<string> MostrarItems() //Imprime en pantalla cuales items y cuantos de cada uno le queda al jugador 
     {
+        List<string> listaitems = new List<string>();
         foreach (var item in items)
         {
-            Console.WriteLine($"{item.Key}: {item.Value.Cantidad} disponibles");
+            listaitems.Add($"{item.Key}: {item.Value.Cantidad} disponibles");
         }
+
+        return listaitems;
     }
 
     /// <summary>
@@ -51,7 +54,7 @@ public class InventarioItems
     /// </summary>
     /// <param name="item">El nombre del ítem a usar.</param>
     /// <param name="pokemon">El Pokémon al que se le aplicará el efecto del ítem.</param>
-    public void UsarItem(string item, Pokemon pokemon) //Busca el item que le pasaste, llama al AplicarEfecto para que haga su efecto y baja en 1 su cantidad
+    public string UsarItem(string item, Pokemon pokemon) //Busca el item que le pasaste, llama al AplicarEfecto para que haga su efecto y baja en 1 su cantidad
     {
         if (items.ContainsKey(item) && items[item].Cantidad > 0)
         {
@@ -72,9 +75,10 @@ public class InventarioItems
             }
             else
             {
-                Console.WriteLine("Seleccione una opcion correcta por favor, 'SuperPocion' para usar una superposión, 'Revivir' para usar un revivir o 'CuraTotal' para usar un curatotal");
+                //Console.WriteLine("Seleccione una opcion correcta por favor, 'SuperPocion' para usar una superposión, 'Revivir' para usar un revivir o 'CuraTotal' para usar un curatotal");
+                return "Seleccione una opcion correcta por favor, 'SuperPocion' para usar una superposión, 'Revivir' para usar un revivir o 'CuraTotal' para usar un curatotal";
             }
         }
-        Console.WriteLine("Ítem no disponible o cantidad insuficiente.");
+        return "Ítem no disponible o cantidad insuficiente.";
     }
 }

@@ -112,7 +112,7 @@ public class Pokemon
     /// Usa un movimiento del Pokémon (puede ser un movimiento de ataque o defensa).
     /// </summary>
     /// <param name="movimiento">Movimiento que se va a utilizar.</param>
-    public void UsarMovimiento(IMovimiento movimiento)
+    public string UsarMovimiento(IMovimiento movimiento)
     {
         if (isAlive)
         {
@@ -135,17 +135,20 @@ public class Pokemon
                 if (movimiento is IMovimientoDefensa defensamovimiento)
                 {
                     defensa += defensamovimiento.GetDefensa();
-                    Console.WriteLine($"{GetName()} ha usado su {movimiento.GetName()} para subir su defensa {defensamovimiento.GetDefensa()} puntos");
+                    //Console.WriteLine($"{GetName()} ha usado su {movimiento.GetName()} para subir su defensa {defensamovimiento.GetDefensa()} puntos");
+                    return $"{GetName()} ha usado su {movimiento.GetName()} para subir su defensa {defensamovimiento.GetDefensa()} puntos";
                 }
             }
         }
+
+        return null;
     }
     
     /// <summary>
     /// Recibe un ataque de otro Pokémon.
     /// </summary>
     /// <param name="movimiento">Movimiento de ataque que inflige daño al Pokémon.</param>
-    public void RecibirAtaque(IMovimientoAtaque movimiento)
+    public string RecibirAtaque(IMovimientoAtaque movimiento)
     {
         double efectividadTipo = 1.0;
         Tipo tipoAtaque = movimiento.GetTipo();
@@ -160,16 +163,19 @@ public class Pokemon
         if (numero == 0)
         {
             danio *= 1.2;
-            Console.WriteLine($"Ha sido un ataque crítico");
+            //Console.WriteLine($"Ha sido un ataque crítico");
+            return $"Ha sido un ataque crítico";
         }
         
         // Aplicar el daño a la defensa o vida o un poco y un poco
         if (defensa > danio)
         {
             defensa -= danio;
-            Console.WriteLine($"{GetName()} ha perdido {danio} de defensa, quedandose a {defensa} de defensa y {vidaActual} de vida");
+            //Console.WriteLine($"{GetName()} ha perdido {danio} de defensa, quedandose a {defensa} de defensa y {vidaActual} de vida");
+            return
+                $"{GetName()} ha perdido {danio} de defensa, quedandose a {defensa} de defensa y {vidaActual} de vida";
         }
-        else
+        else if (defensa>danio)
         {
             danio -= defensa; // Resta el daño restante a la vida
             defensa = 0;
@@ -178,15 +184,20 @@ public class Pokemon
             {
                 isAlive = false;
                 vidaActual = 0;
-                Console.WriteLine($"El pokemon {name} se ha debilitado, por que no podrá combatir más");
-                return;
+                //Console.WriteLine($"El pokemon {name} se ha debilitado, por que no podrá combatir más");
+                return $"El pokemon {name} se ha debilitado, por que no podrá combatir más";
             }
-            Console.WriteLine($"{GetName()} ha perdido toda su defensa y se ha quedado con {vidaActual}");
-        }
-        if (movimiento is IMovimientoEspecial movimientoEspecial)
+            //Console.WriteLine($"{GetName()} ha perdido toda su defensa y se ha quedado con {vidaActual}");
+            return $"{GetName()} ha perdido toda su defensa y se ha quedado con {vidaActual}";
+        } 
+        else
         {
-            AgregarEfecto(movimientoEspecial.GetEfecto());
+            if (movimiento is IMovimientoEspecial movimientoEspecial)
+            {
+                AgregarEfecto(movimientoEspecial.GetEfecto());
+            }
         }
+        return null;
     }
 
     /// <summary>

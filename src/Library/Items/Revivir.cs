@@ -22,9 +22,10 @@ public class Revivir : Item
     /// Aplica el efecto de revivir a un Pokémon, restaurando la mitad de su HP.
     /// </summary>
     /// <param name="pokemon">El Pokémon al que se le aplicará el efecto de revivir.</param>
-    public override void AplicarEfecto(Pokemon pokemon)
+    public override string AplicarEfecto(Pokemon pokemon)
     {
         pokemon.Revivir();
-        Console.WriteLine($"{pokemon.GetName()} ha revivido con la mitad de su HP.");
+        //Console.WriteLine($"{pokemon.GetName()} ha revivido con la mitad de su HP.");
+        return $"{pokemon.GetName()} ha revivido con la mitad de su HP.";
     }
 }

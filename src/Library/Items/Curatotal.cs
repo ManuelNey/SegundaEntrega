@@ -21,17 +21,20 @@ public class Curatotal : Item
     /// siempre que el Pokémon esté vivo y tenga algun efecto.
     /// </summary>
     /// <param name="pokemon">El Pokémon al que se le aplicará el efecto de curación.</param>
-    public override void AplicarEfecto(Pokemon pokemon)
+    public override string AplicarEfecto(Pokemon pokemon)
     {
         if (pokemon.GetIsAlive())
         {
             pokemon.EliminarEfectoActual();
-            Console.WriteLine($"{pokemon.GetName()} ha sido curado de todos los efectos de estado.");
+            //$"{pokemon.GetName()} ha sido curado de todos los efectos de estado.")
+            return $"{pokemon.GetName()} ha sido curado de todos los efectos de estado.";
         }
-        else
+        if (!pokemon.GetIsAlive())
         {
-            Console.WriteLine($"El pokemon {pokemon.GetName()} no se puede curar de ningun efecto debido a que esta muerto");
+            //Console.Writeline($"El pokemon {pokemon.GetName()} no se puede curar de ningun efecto debido a que esta muerto")
+            return $"El pokemon {pokemon.GetName()} no se puede curar de ningun efecto debido a que esta muerto";
         }
-        
+
+        return null;
     }
 }

@@ -175,7 +175,6 @@ public class MenuTest
         Menu juego4 = new Menu();
         juego4.UnirJugadores("Don Dimadon");
         juego4.UnirJugadores("Timmy Turner");
-        juego4.UnirJugadores("Jorge");
         juego4.AgregarPokemonesA("Charmander");
         juego4.AgregarPokemonesA("Squirtle");
         juego4.AgregarPokemonesA("Bulbasaur");

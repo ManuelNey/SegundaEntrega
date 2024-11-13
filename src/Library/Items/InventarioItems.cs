@@ -38,15 +38,12 @@ public class InventarioItems
     /// <summary>
     /// Muestra en consola los ítems disponibles en el inventario y su cantidad.
     /// </summary>
-    public List<string> MostrarItems() //Imprime en pantalla cuales items y cuantos de cada uno le queda al jugador 
+    public void MostrarItems() //Imprime en pantalla cuales items y cuantos de cada uno le queda al jugador 
     {
-        List<string> listaitems = new List<string>();
         foreach (var item in items)
         {
-            listaitems.Add($"{item.Key}: {item.Value.Cantidad} disponibles");
+            ManejadorMensajes.Instance.LogMessage($"{item.Key}: {item.Value.Cantidad} disponibles");
         }
-
-        return listaitems;
     }
 
     /// <summary>

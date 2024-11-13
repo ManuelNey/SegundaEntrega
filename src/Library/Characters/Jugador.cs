@@ -66,7 +66,7 @@ public class Jugador
     /// <param name="ataque">El movimiento de ataque que se va a recibir.</param>
     public string PokemonAtacado(IMovimientoAtaque ataque)
     {
-       return pokemonEnTurno.RecibirAtaque(ataque);
+        return pokemonEnTurno.RecibirAtaque(ataque);
     }
 
     /// <summary>
@@ -201,7 +201,7 @@ public class Jugador
     /// <summary>
     /// Muestra el estado de todos los Pokémon del equipo del jugador.
     /// </summary>
-    public string MostarEstadoEquipo()
+    public void MostarEstadoEquipo()
     {
         //Console.WriteLine($"El estado del equipo de {name} es:");
         foreach (Pokemon pokemon in listaPokemons)
@@ -209,18 +209,16 @@ public class Jugador
             if (pokemon.GetIsAlive())
             {
                 //Console.WriteLine($"{pokemon.GetName()} {pokemon.GetVidaActual()}/{pokemon.GetVidaTotal()}");
-                return $"El estado del equipo de {{name}} es:" +
-                       $"{pokemon.GetName()} {pokemon.GetVidaActual()}/{pokemon.GetVidaTotal()}";
+                ManejadorMensajes.Instance.LogMessage($"El estado del equipo de {{name}} es:" +
+                                                      $"{pokemon.GetName()} {pokemon.GetVidaActual()}/{pokemon.GetVidaTotal()}");
             }
             else
             {
                 //Console.WriteLine($"{pokemon.GetName()} ha muerto");
-                return $"El estado del equipo de {{name}} es:" +
-                       $"{pokemon.GetName()} ha muerto";
+                ManejadorMensajes.Instance.LogMessage($"El estado del equipo de {{name}} es:" +
+                       $"{pokemon.GetName()} ha muerto");
             }
         }
-
-        return null;
     }
 
     /// <summary>
@@ -228,23 +226,21 @@ public class Jugador
     /// </summary>
     /// <param name="item">El nombre del item a usar.</param>
     /// <param name="pokemon">El Pokémon sobre el que se va a usar el item.</param>
-    public string UsarItem(string item, Pokemon pokemon)
+    public void UsarItem(string item, Pokemon pokemon)
     {
         if (listaPokemons.Contains(pokemon))
         {
             int IndicePokemonAEfectuar = listaPokemons.IndexOf(pokemon);
             Pokemon PokemonAEfectuar = listaPokemons[IndicePokemonAEfectuar];
-            return inventarioJugador.UsarItem(item, PokemonAEfectuar);
+            ManejadorMensajes.Instance.LogMessage(inventarioJugador.UsarItem(item, PokemonAEfectuar));
         }
-
-        return null;
     }
 
     /// <summary>
     /// Muestra todos los items disponibles en el inventario del jugador.
     /// </summary>
-    public List<string> Mostrar_items() //Este método llama al mostrar items de InventarioItems para mostrar los items disponibles que tiene el jugador
+    public void Mostrar_items() //Este método llama al mostrar items de InventarioItems para mostrar los items disponibles que tiene el jugador
     {
-       return inventarioJugador.MostrarItems();
+        inventarioJugador.MostrarItems();
     }
 }

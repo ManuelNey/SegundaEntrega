@@ -39,8 +39,8 @@ public class Dormir:Efecto
         }
         else
         {
-            Console.WriteLine($"{pokemon.GetName()} dormira durante {Turnos} turnos");
             pokemon.SetPuedeAtacar(false);
+            Console.WriteLine( $"{pokemon.GetName()} dormira durante {Turnos} turnos");
         }
         this.Turnos -= 1;
     }

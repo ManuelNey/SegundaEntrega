@@ -112,7 +112,7 @@ public class Pokemon
     /// Usa un movimiento del Pokémon (puede ser un movimiento de ataque o defensa).
     /// </summary>
     /// <param name="movimiento">Movimiento que se va a utilizar.</param>
-    public string UsarMovimiento(IMovimiento movimiento)
+    public void UsarMovimiento(IMovimiento movimiento)
     {
         if (isAlive)
         {
@@ -136,12 +136,10 @@ public class Pokemon
                 {
                     defensa += defensamovimiento.GetDefensa();
                     //Console.WriteLine($"{GetName()} ha usado su {movimiento.GetName()} para subir su defensa {defensamovimiento.GetDefensa()} puntos");
-                    return $"{GetName()} ha usado su {movimiento.GetName()} para subir su defensa {defensamovimiento.GetDefensa()} puntos";
+                    ManejadorMensajes.Instance.LogMessage($"{GetName()} ha usado su {movimiento.GetName()} para subir su defensa {defensamovimiento.GetDefensa()} puntos");
                 }
             }
         }
-
-        return null;
     }
     
     /// <summary>
@@ -164,7 +162,7 @@ public class Pokemon
         {
             danio *= 1.2;
             //Console.WriteLine($"Ha sido un ataque crítico");
-            return $"Ha sido un ataque crítico";
+            return "Ha sido un ataque crítico";
         }
         
         // Aplicar el daño a la defensa o vida o un poco y un poco
@@ -172,10 +170,9 @@ public class Pokemon
         {
             defensa -= danio;
             //Console.WriteLine($"{GetName()} ha perdido {danio} de defensa, quedandose a {defensa} de defensa y {vidaActual} de vida");
-            return
-                $"{GetName()} ha perdido {danio} de defensa, quedandose a {defensa} de defensa y {vidaActual} de vida";
+            return $"{GetName()} ha perdido {danio} de defensa, quedandose a {defensa} de defensa y {vidaActual} de vida";
         }
-        else if (defensa>danio)
+        if (defensa>danio)
         {
             danio -= defensa; // Resta el daño restante a la vida
             defensa = 0;
@@ -197,6 +194,7 @@ public class Pokemon
                 AgregarEfecto(movimientoEspecial.GetEfecto());
             }
         }
+
         return null;
     }
 
@@ -208,7 +206,7 @@ public class Pokemon
     {
         double porcentaje = (numero *this.vidaTotal) / 100;
         this.vidaActual -= porcentaje;
-        Console.WriteLine($"{GetName()} ha recibido {porcentaje} de daño adicional");
+        ManejadorMensajes.Instance.LogMessage($"{GetName()} ha recibido {porcentaje} de daño adicional");
     }
 
     /// <summary>
@@ -229,7 +227,7 @@ public class Pokemon
         if (estado == null)
         {
             estado = Efecto.CrearCopia(efecto.GetType()); // Usa el tipo del efecto para crear una nueva instancia
-            Console.WriteLine($"{GetName()} caído bajo el efecto {efecto.GetType().Name}");
+            ManejadorMensajes.Instance.LogMessage($"{GetName()} caído bajo el efecto {efecto.GetType().Name}");
         }
     }
     

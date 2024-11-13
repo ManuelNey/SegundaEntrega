@@ -36,9 +36,9 @@ namespace Library.Combate
         /// </summary>
         /// <param name="ataque">El movimiento de ataque que se aplica al defensor.</param>
 
-        public string RecibirAtaqueB(IMovimientoAtaque ataque)
+        public void RecibirAtaqueB(IMovimientoAtaque ataque)
         {
-            return jugadorDefensor.PokemonAtacado(ataque);
+            ManejadorMensajes.Instance.LogMessage(jugadorDefensor.PokemonAtacado(ataque));
         }
         
 
@@ -46,13 +46,13 @@ namespace Library.Combate
         /// Agrega un jugador a la batalla, asignándolo como atacante o defensor.
         /// </summary>
         /// <param name="jugador">El jugador que se va a agregar a la batalla.</param>
-        public string AgregarJugador(Jugador jugador)
+        public void AgregarJugador(Jugador jugador)
         {
             if (jugadorDefensor != null && jugadorAtacante != null)
             {
                 jugadoresEnEspera.Add(jugador);
                 //Console.Writeline("No podemos agregar más jugadores pero se te va agregar a una lista de espera, ya hay 2 jugadores para jugar")
-                return "No podemos agregar más jugadores pero se te va agregar a una lista de espera, ya hay 2 jugadores para jugar";
+                ManejadorMensajes.Instance.LogMessage("No podemos agregar más jugadores pero se te va agregar a una lista de espera, ya hay 2 jugadores para jugar");
             }
             else
             {
@@ -63,14 +63,14 @@ namespace Library.Combate
                     {
                         jugadorDefensor = jugador;
                         //Console.Writeline($"{jugadorDefensor.GetName()} te va tocar esperar, empieza tu oponente")
-                        return $"{jugadorDefensor.GetName()} te va tocar esperar, empieza tu oponente";
+                        ManejadorMensajes.Instance.LogMessage($"{jugadorDefensor.GetName()} te va tocar esperar, empieza tu oponente");
                     }
 
                     else
                     {
                         jugadorAtacante = jugador;
                         //Console.Writeline($"{jugadorAtacante.GetName()} tu empezaras el combate")
-                        return $"{jugadorAtacante.GetName()} tu empezaras el combate";
+                        ManejadorMensajes.Instance.LogMessage($"{jugadorAtacante.GetName()} tu empezaras el combate");
                     }
                        
                 }
@@ -78,13 +78,13 @@ namespace Library.Combate
                 {
                     jugadorDefensor = jugador;
                     //Console.Writeline($"{jugadorDefensor.GetName()} te va tocar esperar, empieza tu oponente")
-                    return $"{jugadorDefensor.GetName()} te va tocar esperar, empieza tu oponente";
+                    ManejadorMensajes.Instance.LogMessage($"{jugadorDefensor.GetName()} te va tocar esperar, empieza tu oponente");
                 }
                 else
                 {
                     jugadorAtacante = jugador;
                     //Console.Writeline($"{jugadorAtacante.GetName()} tu empezaras el combate")
-                    return $"{jugadorAtacante.GetName()} tu empezaras el combate";
+                    ManejadorMensajes.Instance.LogMessage($"{jugadorAtacante.GetName()} tu empezaras el combate");
                 }
             }
         }
@@ -102,18 +102,18 @@ namespace Library.Combate
         /// Agrega un Pokémon al equipo del jugador atacante.
         /// </summary>
         /// <param name="pokemon">El nombre del Pokémon que se agrega al equipo.</param>
-        public string AgregarPokemonBA(string pokemon)
+        public void AgregarPokemonBA(string pokemon)
         {
-           return jugadorAtacante.AgregarAlEquipo(pokemon);
+           ManejadorMensajes.Instance.LogMessage(jugadorAtacante.AgregarAlEquipo(pokemon));
         }
         
         /// <summary>
         /// Agrega un Pokémon al equipo del jugador defensor.
         /// </summary>
         /// <param name="pokemon">El nombre del Pokémon que se agrega al equipo.</param>
-        public string AgregarPokemonBD(string pokemon)
+        public void AgregarPokemonBD(string pokemon)
         {
-            return jugadorDefensor.AgregarAlEquipo(pokemon);
+            ManejadorMensajes.Instance.LogMessage(jugadorDefensor.AgregarAlEquipo(pokemon));
         }
 
         /// <summary>
@@ -171,7 +171,7 @@ namespace Library.Combate
         /// <summary>
         /// Inicia la batalla si ambos jugadores tienen Pokémon en sus equipos y la batalla no ha comenzado.
         /// </summary>
-        public string IniciarBatalla()
+        public void IniciarBatalla()
         {
             // Verifica si ambos jugadores tienen equipos y la batalla no ha comenzado
             //Console.Writeline("..........")
@@ -179,21 +179,21 @@ namespace Library.Combate
             {
                 batallaIniciada = true;
                 //Console.Writeline($".........." + $"La batalla ha iniciado, comienza el jugador {jugadorAtacante.GetName()}")
-                return $".........." +
-                       $"La batalla ha iniciado, comienza el jugador {jugadorAtacante.GetName()}";
+                ManejadorMensajes.Instance.LogMessage($".........." +
+                       $"La batalla ha iniciado, comienza el jugador {jugadorAtacante.GetName()}");
             }
             else
             {
                 //Console.Writeline($"La batalla ya ha comenzado o uno de los jugadores no tiene Pokémon.")
-                return $".........." +
-                       $"La batalla ya ha comenzado o uno de los jugadores no tiene Pokémon.";
+                ManejadorMensajes.Instance.LogMessage($".........." +
+                       $"La batalla ya ha comenzado o uno de los jugadores no tiene Pokémon.");
             }
         }
 
         /// <summary>
         /// Finaliza la batalla si alguno de los jugadores ha perdido todos sus Pokémon.
         /// </summary>
-        public string TerminarBatalla()
+        public void TerminarBatalla()
         {
             // Revisa si alguno de los equipos ha perdido, si ya ha perdido cambia el bool
             if (!jugadorAtacante.TeamIsAlive())
@@ -201,19 +201,17 @@ namespace Library.Combate
                 //Console.WriteLine($"¡Ha ganado el jugador {jugadorDefensor.GetName()}!");
                 this.batallaTerminada = true;
                 //Console.WriteLine("La batalla ha terminado");
-                return $"¡Ha ganado el jugador {jugadorDefensor.GetName()}!" +
-                       $"La batalla ha terminado";
+                ManejadorMensajes.Instance.LogMessage($"¡Ha ganado el jugador {jugadorDefensor.GetName()}!" +
+                       $"La batalla ha terminado");
             }
-            else if (!jugadorDefensor.TeamIsAlive())
+            else
             {
                 //Console.WriteLine($"¡Ha ganado el jugador {jugadorAtacante.GetName()}!");
                 this.batallaTerminada = true;
                 //Console.WriteLine("La batalla ha terminado");
-                return $"¡Ha ganado el jugador {jugadorDefensor.GetName()}!" +
-                       $"La batalla ha terminado";
+                ManejadorMensajes.Instance.LogMessage($"¡Ha ganado el jugador {jugadorDefensor.GetName()}!" +
+                       $"La batalla ha terminado");
             }
-
-            return null;
         }
 
         /// <summary>
@@ -229,11 +227,11 @@ namespace Library.Combate
                     {
                         Pokemon pokemonDebilitado = jugadorDefensor.GetPokemonEnTurno();
                         jugadorDefensor.CambiarPokemon(pokemon);
-                        Console.WriteLine($"{pokemonDebilitado.GetName()} ha sido debilitado y cambiado por {jugadorDefensor.GetNamePokemonTurno()} automáticamente");
+                        ManejadorMensajes.Instance.LogMessage($"{pokemonDebilitado.GetName()} ha sido debilitado y cambiado por {jugadorDefensor.GetNamePokemonTurno()} automáticamente");
                         return;
                     }
                 }
-                Console.WriteLine($"A {jugadorDefensor.GetName()} no le quedan más Pokémon en condiciones de combatir.");
+                ManejadorMensajes.Instance.LogMessage($"A {jugadorDefensor.GetName()} no le quedan más Pokémon en condiciones de combatir.");
                 TerminarBatalla();
             }
         }
@@ -241,7 +239,7 @@ namespace Library.Combate
         /// <summary>
         /// Avanza al siguiente turno de la batalla, alternando entre los jugadores y verificando si alguno de los equipos ha perdido.
         /// </summary>
-        public string AvanzarTurno()
+        public void AvanzarTurno()
         {
             
             VerificarPokemonDefensorDebilitado();
@@ -249,7 +247,7 @@ namespace Library.Combate
             if (batallaTerminada)
             {
                 //Console.WriteLine("La batalla ha terminado.");
-                return $"La batalla ha terminado";
+                ManejadorMensajes.Instance.LogMessage("La batalla ha terminado");
             }
 
             if (jugadorDefensor.GetEfectoPokemonTurno() != null)
@@ -264,7 +262,7 @@ namespace Library.Combate
             {
                 AvanzarTurno();
                 //Console.Writeline($"{jugadorAtacante.GetName()} no puede atacar este turno.")
-                return $"{jugadorAtacante.GetName()} no puede atacar este turno.";
+                ManejadorMensajes.Instance.LogMessage($"{jugadorAtacante.GetName()} no puede atacar este turno.");
             }
             else
             {
@@ -278,11 +276,9 @@ namespace Library.Combate
             }
             else
             {
-                return $".........." +
-                       $"Es el turno de {jugadorAtacante.GetName()} con el Pokémon {jugadorAtacante.GetNamePokemonTurno()}.";
+                ManejadorMensajes.Instance.LogMessage($".........." +
+                       $"Es el turno de {jugadorAtacante.GetName()} con el Pokémon {jugadorAtacante.GetNamePokemonTurno()}.");
             }
-
-            return null;
         }
 
         /// <summary>

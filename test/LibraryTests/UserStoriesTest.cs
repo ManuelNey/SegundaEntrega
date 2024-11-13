@@ -23,17 +23,17 @@ public class MenuTest
     public void PikachuDañaAPidgey()
     {
         // 95 de daño del ataque rayo * efectividad (2) 
-        int vidaesperada = 0; // tiene 60 de vida y 40 de defensa así que aguantría un golpe de 99 de daño como mucho 
+        int vidaesperada = 0; // tiene 60 de vida y 40 de defensa así que aguantría un golpe de 99 de daño como mucho
+        int vidaesperadaapickachu = 80;
         Menu menuPP = new Menu();
         menuPP.UnirJugadores("Ash");
         menuPP.UnirJugadores("Red");
         menuPP.AgregarPokemonesA("Pikachu");
         menuPP.AgregarPokemonesD("Pidgey");
         menuPP.IniciarEnfrentamiento();
-        menuPP.GetHpDefensor();
         menuPP.UsarMovimientos(1); //Pikachu usa royo
-        Assert.That(vidaesperada,Is.EqualTo(menuPP.GetHpAtacante())); // Verificar que la vida de Pidgey es 0
-        Assert.That(80,Is.EqualTo(menuPP.GetHpDefensor())); // Verificar que Pikachu mantiene su HP
+        Assert.That(vidaesperadaapickachu,Is.EqualTo(menuPP.GetHpAtacante())); // Verificar que Pikachu mantiene su HP
+        Assert.That(vidaesperada,Is.EqualTo(menuPP.GetHpDefensor())); // Verificar que la vida de Pidgey es 0
     }
     [Test]
     public void PidgeyPorCharmanderParaAguantarAPikachu()
@@ -54,9 +54,8 @@ public class MenuTest
         menuPP.IniciarEnfrentamiento();
         menuPP.CambiarPokemon(1); // Cambia a Charmander
         menuPP.UsarMovimientos(2);//Pikachu usa rayo, danio de rayo: 65, defensa de Charmander: vida 85, defensa: 60
-        
-        Assert.That(vidaCharmanderRestanteEsperada,Is.EqualTo(menuPP.GetHpAtacante())); // Verificar que la vida de Charmander es la esperada
         menuPP.CambiarPokemon(1);//Cambio a Pidgey, pasa a ser defensor al usar su turno
+        Assert.That(vidaCharmanderRestanteEsperada,Is.EqualTo(menuPP.GetHpAtacante())); // Verificar que la vida de Charmander es la esperada
         menuPP.UsarMovimientos(4);//Pikachu usa proteccion
         Assert.That( menuPP.GetHpAtacante(),Is.EqualTo(vidaPidgeyEsperada)); //Verifica que pidgey sigue intecto
     }
@@ -107,7 +106,7 @@ public class MenuTest
         juego1.UsarMovimientos(1);//Jugador 1 usa Rayo(especial), vida del contrincante en 45
         juego1.UsarMovimientos(1);//Jugador2 usa picotazo cola
         juego1.UsarMovimientos(1);//Jugador 1 intenta usar el Rayo nuevamente pero no puede, vida del contrincante se mantiene
-        int vidaesperadadefensor = 5;
+        int vidaesperadadefensor = 45;
         double vidaObtenidaDefensor = juego1.GetHpDefensor();
         Assert.That(vidaesperadadefensor,Is.EqualTo(vidaObtenidaDefensor));
     }

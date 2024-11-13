@@ -164,13 +164,13 @@ namespace Library.Combate
         {
             if (batallaActual.GetBatallaTerminada())
             {
-                Console.WriteLine("La batalla ya ha terminado.");
+                ManejadorMensajes.Instance.LogMessage("La batalla ya ha terminado.");
                 return;
             }
 
             if (!batallaActual.GetBatallaIniciada())
             {   
-                Console.WriteLine("La batalla no ha iniciado");
+                ManejadorMensajes.Instance.LogMessage("La batalla no ha iniciado");
                 return;
             }
             Jugador jugador = batallaActual.GetAtacante();
@@ -182,7 +182,7 @@ namespace Library.Combate
 
                 if (movimiento is IMovimientoEspecial especial && especial.GetUsadoAnteriormente())
                 {
-                    Console.WriteLine($"El movimiento {movimiento.GetName()} es especial y ya fue usado anteriormente. Elija otro movimiento.");
+                    ManejadorMensajes.Instance.LogMessage($"El movimiento {movimiento.GetName()} es especial y ya fue usado anteriormente. Elija otro movimiento.");
                 }
                 else
                 {
@@ -194,12 +194,12 @@ namespace Library.Combate
                         int numeroAleatorio = random.Next(1, 101); //Numero aleatorio para saber si acierto 
                         if (numeroAleatorio <= movimientoAtaque.GetPrecision())
                         {
-                            Console.WriteLine($"{pokemonActual.GetName()} ha acertado su ataque");
                             batallaActual.RecibirAtaqueB(movimientoAtaque);
+                            ManejadorMensajes.Instance.LogMessage($"{pokemonActual.GetName()} ha acertado su ataque");
                         }
                         else
                         {
-                            Console.WriteLine($"El ataque {movimientoAtaque.GetName()} ha fallado");
+                            ManejadorMensajes.Instance.LogMessage($"El ataque {movimientoAtaque.GetName()} ha fallado");
                         }
 
                         if (movimientoAtaque is IMovimientoEspecial movimientoEspecial)
@@ -212,7 +212,7 @@ namespace Library.Combate
             }
             else
             {
-                Console.WriteLine("Movimiento inválido. Por favor, seleccione un movimiento entre 1 y 4, o uno que pueda usarse en este turno.");
+                ManejadorMensajes.Instance.LogMessage("Movimiento inválido. Por favor, seleccione un movimiento entre 1 y 4, o uno que pueda usarse en este turno.");
             }
         }
         public void MostrarNumPokemon()
@@ -224,7 +224,7 @@ namespace Library.Combate
                 for (int i = 0; i < listaPokemons.Count; i++)
                 {
                     Pokemon pokemon = listaPokemons[i];
-                    Console.WriteLine($"{i}. {pokemon.GetName()}");
+                    ManejadorMensajes.Instance.LogMessage($"{i}. {pokemon.GetName()}");
                 }
             }
             
@@ -253,7 +253,7 @@ namespace Library.Combate
                 }
                 else
                 {
-                    Console.WriteLine("Seleccione el pokemon correctamente");
+                    ManejadorMensajes.Instance.LogMessage("Seleccione el pokemon correctamente");
                 }
             }
         }

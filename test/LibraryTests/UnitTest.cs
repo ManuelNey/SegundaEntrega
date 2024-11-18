@@ -36,59 +36,7 @@ public class UnitTest
         Assert.That(80, Is.EqualTo(menuPP.GetHpDefensor())); // Verificar que Pikachu mantiene su HP
     }
 
-    [Test]
-    public void TrataDeUsarSuperPocionEnPokemonDebilitado()
-    {
-        Menu juego1 = new Menu();
-        juego1.UnirJugadores("Ash");
-        juego1.UnirJugadores("Red");
-        juego1.AgregarPokemonesA("Pikachu");
-        juego1.AgregarPokemonesD("Pidgey");
-        juego1.IniciarEnfrentamiento();
-        juego1.UsarMovimientos(1); //Jugador 1 usa Rayo y pidgey es debilitado
-        juego1.UsarItem("Superpocion", 0); //Trata de curar a Pidgey
-        double vidaEsperada2 = 0;
-        Pokemon pidgey = juego1.GetPokemonActual();
-        double vidaObtenida2 = pidgey.GetVidaActual();
-        // Usar Superpoción para restaurar 70 HP 
-        Assert.That(vidaObtenida2, Is.EqualTo(vidaEsperada2));
-    }
 
-    [Test]
-    public void PokemonQuemado()
-    {
-
-        Menu Menu1 = new Menu();
-        Menu1.UnirJugadores("Ansu");
-        Menu1.UnirJugadores("Cima");
-        Menu1.AgregarPokemonesA("Charmander");
-        Menu1.AgregarPokemonesD("Squirtle");
-        Menu1.IniciarEnfrentamiento();
-        Menu1.UsarMovimientos(2); //El charmander hace lanzallamas al squirtle, no le hace daño pero lo quema
-        Menu1.UsarMovimientos(4); // El squirtle hace protección
-        double vidaesperadasquirtle = 72;
-        double vidadada = Menu1.GetHpDefensor();
-        Assert.That(vidaesperadasquirtle, Is.EqualTo(vidadada));
-    }
-
-    [Test]
-
-    public void PokemonDormido()
-    {
-
-        Menu Menu1 = new Menu();
-        Menu1.UnirJugadores("Ansu");
-        Menu1.UnirJugadores("Cima");
-        Menu1.AgregarPokemonesA("Pidgey");
-        Menu1.AgregarPokemonesD("Squirtle");
-        Menu1.IniciarEnfrentamiento();
-        Menu1.UsarMovimientos(1); //El Pidgey hace vendaval y lo duerme
-        Menu1.UsarMovimientos(1); // El squirtle trata de usar hidropulso pero no lo consigue, la vida del pidgey se mantiene intacta
-        double vidaesperadasquirtle = 80;
-        double vidadada = Menu1.GetHpDefensor();
-        Assert.That(vidaesperadasquirtle, Is.EqualTo(vidadada));
-
-    }
 
     [Test]
     public void PidgeyPorCharmanderParaAguantarAPikachu()
@@ -415,10 +363,7 @@ public class UnitTest
         juego3.IniciarEnfrentamiento();
         juego3.CambiarPokemon(0); //Trata de cambiar a Squirtle por Squirtle
         string pokemonesperado = "Squirtle";
-        string
-            pokemonobtenido =
-                juego3.GetPokemonActual()
-                    .GetName(); //Si hubiese salido bien, sería el turno del otro jugador porque hubiese avanzado un turno
+        string pokemonobtenido = juego3.GetPokemonActual().GetName(); //Si hubiese salido bien, sería el turno del otro jugador porque hubiese avanzado un turno
         Assert.That(pokemonesperado, Is.EqualTo(pokemonobtenido));
 
     }
@@ -462,5 +407,59 @@ public class UnitTest
         Efecto efectohecho = rival.GetEfecto();
         Efecto efectoesperado = pokemon.GetEfecto();
         Assert.That(efectohecho.GetType(), Is.EqualTo(efectoesperado.GetType()));
+    }
+    [Test]
+    public void TrataDeUsarSuperPocionEnPokemonDebilitado()
+    {
+        Menu juego1 = new Menu();
+        juego1.UnirJugadores("Ash");
+        juego1.UnirJugadores("Red");
+        juego1.AgregarPokemonesA("Pikachu");
+        juego1.AgregarPokemonesD("Pidgey");
+        juego1.IniciarEnfrentamiento();
+        juego1.UsarMovimientos(1); //Jugador 1 usa Rayo y pidgey es debilitado
+        juego1.UsarItem("Superpocion", 0); //Trata de curar a Pidgey
+        double vidaEsperada2 = 0;
+        Pokemon pidgey = juego1.GetPokemonActual();
+        double vidaObtenida2 = pidgey.GetVidaActual();
+        // Usar Superpoción para restaurar 70 HP 
+        Assert.That(vidaObtenida2, Is.EqualTo(vidaEsperada2));
+    }
+    
+
+    [Test]
+    public void PokemonQuemado()
+    {
+
+        Menu Menu1 = new Menu();
+        Menu1.UnirJugadores("Ansu");
+        Menu1.UnirJugadores("Cima");
+        Menu1.AgregarPokemonesA("Charmander");
+        Menu1.AgregarPokemonesD("Squirtle");
+        Menu1.IniciarEnfrentamiento();
+        Menu1.UsarMovimientos(2); //El charmander hace lanzallamas al squirtle, no le hace daño pero lo quema
+        Menu1.UsarMovimientos(4); // El squirtle hace protección
+        double vidaesperadasquirtle = 72;
+        double vidadada = Menu1.GetHpDefensor();
+        Assert.That(vidaesperadasquirtle, Is.EqualTo(vidadada));
+    }
+
+    [Test]
+
+    public void PokemonDormido()
+    {
+
+        Menu Menu1 = new Menu();
+        Menu1.UnirJugadores("Ansu");
+        Menu1.UnirJugadores("Cima");
+        Menu1.AgregarPokemonesA("Pidgey");
+        Menu1.AgregarPokemonesD("Squirtle");
+        Menu1.IniciarEnfrentamiento();
+        Menu1.UsarMovimientos(1); //El Pidgey hace vendaval y lo duerme
+        Menu1.UsarMovimientos(1); // El squirtle trata de usar hidropulso pero no lo consigue, la vida del pidgey se mantiene intacta
+        double vidaesperadasquirtle = 80;
+        double vidadada = Menu1.GetHpDefensor();
+        Assert.That(vidaesperadasquirtle, Is.EqualTo(vidadada));
+
     }
 }

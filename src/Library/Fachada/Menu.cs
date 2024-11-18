@@ -103,7 +103,7 @@ namespace Library.Combate
                 Jugador jugadorAtacante = batallaActual.GetAtacante();
                 List<Pokemon> pokemons = jugadorAtacante.GetPokemons();
             
-                if (numeroDePokemon >= 0 && numeroDePokemon < pokemons.Count )
+                if (numeroDePokemon > 0 && numeroDePokemon < pokemons.Count )
                 {
                     Pokemon pokemonElegido = pokemons[numeroDePokemon];
                 
@@ -114,10 +114,15 @@ namespace Library.Combate
                         Console.WriteLine($"El Pokémon {pokemonElegido.GetName()} ha entrado en combate y {pokemon.GetName()} ha sido guardado en su pokebola");
                         batallaActual.AvanzarTurno();
                     }
+            
                     else
                     {
                         Console.WriteLine($"El Pokémon {pokemonElegido.GetName()} está debilitado y no puede entrar en combate");
                     }
+                }
+                else if (numeroDePokemon == 0)
+                {
+                    Console.WriteLine("No puede cambiar al pokemon que ya está atacando");
                 }
                 else
                 {

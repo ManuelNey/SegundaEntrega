@@ -361,13 +361,7 @@
             <param name="pokemon">El Pokémon que se está evaluando para determinar si puede atacar.</param>  
             <returns>Verdadero si el Pokémon puede atacar, falso si no puede.</returns>  
         </member>
-        <member name="M:Library.Tipos.Paralizar.HacerEfecto(DefaultNamespace.Pokemon)">
-            <summary>  
-            Aplica el efecto de paralización al Pokémon.  
-            Actualiza el estado del Pokémon para indicar si puede atacar o no durante su turno.  
-            </summary>  
-            <param name="pokemon">El Pokémon al que se le aplicará el efecto de paralización.</param>  
-        </member>
+        <!-- Badly formed XML comment ignored for member "M:Library.Tipos.Paralizar.HacerEfecto(DefaultNamespace.Pokemon)" -->
         <!-- Badly formed XML comment ignored for member "M:Library.Tipos.Quemar.#ctor" -->
         <member name="M:Library.Tipos.Quemar.HacerEfecto(DefaultNamespace.Pokemon)">
             <summary>  

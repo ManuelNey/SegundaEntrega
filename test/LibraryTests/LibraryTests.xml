@@ -29,6 +29,12 @@
             Prueba que el tren se detenga.
             </summary>
         </member>
+        <member name="M:Program.Tests.Combate.UnitTest.PikachuDañaAPidgey">
+            <summary>
+            Prueba de la clase <see cref="T:Library.Combate.Menu"/>.
+            Estos test nos permiten verificar que las historias de usuarios están bien implementadas
+            </summary>
+        </member>
         <member name="M:Program.Tests.Combate.MenuTest.PikachuDañaAPidgey">
             <summary>
             Prueba de la clase <see cref="T:Library.Combate.Menu"/>.

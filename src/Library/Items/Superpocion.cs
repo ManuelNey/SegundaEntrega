@@ -26,7 +26,14 @@ public class Superpocion : Item
     /// <param name="pokemon">El Pokémon al que se le aplicará el efecto curativo.</param>
     public override void AplicarEfecto(Pokemon pokemon)
     {
-        pokemon.Curar(70);
-        Console.WriteLine($"{pokemon.GetName()} recuperó 70 puntos de vida.");
+        if (pokemon.GetIsAlive())
+        {
+            pokemon.Curar(70);
+            Console.WriteLine($"{pokemon.GetName()} recuperó 70 puntos de vida.");
+        }
+        else
+        {
+            Console.WriteLine($"{pokemon.GetName()} Está debilitado, no se puede curar");
+        }
     }
 }

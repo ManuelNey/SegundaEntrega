@@ -40,7 +40,12 @@ public class Paralizar:Efecto
 
     /// <summary>  
     /// Aplica el efecto de paralización al Pokémon.  
-    /// Actualiza el estado del Pokémon para indicar si puede atacar o no durante su turno.  
+    /// Actualiza el estado del Pokémon para indicar si puede atacar o no durante su turno.
+    /// 
+
+
+
+
     /// </summary>  
     /// <param name="pokemon">El Pokémon al que se le aplicará el efecto de paralización.</param>  
     public override void HacerEfecto(Pokemon pokemon)

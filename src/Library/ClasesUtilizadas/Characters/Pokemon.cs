@@ -54,6 +54,13 @@ public class Pokemon
     {
         this.ataquedanio = ataque;
     }
+    public void SetStrategyParalisis(IEfectoParalisisStrategy paralisis)
+    {
+        if (estado is Paralizar paralizar)
+        {
+            paralizar.SetStrategyParalisis(paralisis);
+        }
+    }
     
     /// <summary>
     /// Aplica el efecto de un Pokémon a otro Pokémon.
@@ -233,7 +240,7 @@ public class Pokemon
     {
         if (estado == null)
         {
-            estado = Efecto.CrearCopia(efecto.GetType()); // Usa el tipo del efecto para crear una nueva instancia
+            estado = Efecto.CrearCopia(efecto); // Usa el tipo del efecto para crear una nueva instancia
             return $"\n{GetName()} caído bajo el efecto {efecto.GetType().Name}\n";
         }
 

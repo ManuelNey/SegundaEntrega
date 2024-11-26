@@ -1,4 +1,5 @@
 using DefaultNamespace;
+using Library.Tipos.Paralisis_Strategy;
 
 namespace Library.Tipos;
 //Efecto:
@@ -40,8 +41,23 @@ public abstract class Efecto
     /// </summary>  
     /// <param name="tipoEfecto">El tipo del efecto que se desea copiar.</param>  
     /// <returns>Una nueva instancia del efecto del tipo especificado.</returns>  
-    public static Efecto CrearCopia(Type tipoEfecto)
+    public static Efecto CrearCopia(Efecto efecto)
     {
-        return (Efecto)Activator.CreateInstance(tipoEfecto);
+        if (efecto is Paralizar paralizar)
+        {
+            if (paralizar.GetParalisisEfecto() is EfectoParalisisFalse efectoParalisisFalse)
+            {
+                Paralizar efectonuevo = new Paralizar();
+                efectonuevo.SetStrategyParalisis(new EfectoParalisisFalse());
+                return efectonuevo;
+            }
+            if (paralizar.GetParalisisEfecto() is EfectoParalisisTrue efectoParalisisTrue)
+            {
+                Paralizar efectonuevo = new Paralizar();
+                efectonuevo.SetStrategyParalisis(new EfectoParalisisTrue());
+                return efectonuevo;
+            }
+        }
+        return (Efecto)Activator.CreateInstance(efecto.GetType());
     }
 }

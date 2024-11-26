@@ -25,6 +25,11 @@ public class Paralizar:Efecto
         this.paralisisEfecto = efecto;
     }
 
+    public IEfectoParalisisStrategy GetParalisisEfecto()
+    {
+        return paralisisEfecto;
+    }
+
     /// <summary>  
     /// Aplica el efecto de paralización al Pokémon.  
     /// Actualiza el estado del Pokémon para indicar si puede atacar o no durante su turno.  

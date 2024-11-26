@@ -44,7 +44,7 @@ public class MovimientoDeDefensa : IMovimientoDefensa
     /// <returns>El valor de defensa del movimiento de defensa.</returns>  
     public int GetDefensa()
     {
-        return this.Defensa;
+        return Defensa;
     }
     
     /// <summary>  
@@ -53,7 +53,7 @@ public class MovimientoDeDefensa : IMovimientoDefensa
     /// <returns>El nombre del movimiento de defensa.</returns>  
     public string GetName()
     {
-        return this.Name;
+        return Name;
     }
 
     /// <summary>  
@@ -62,7 +62,7 @@ public class MovimientoDeDefensa : IMovimientoDefensa
     /// <returns>El tipo asociado con el movimiento de defensa.</returns>  
     public Tipo GetTipo()
     {
-        return this.Tipo;
+        return Tipo;
     }
    
 }

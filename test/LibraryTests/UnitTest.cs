@@ -6,6 +6,7 @@ using Library.Tipos;
 // using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using Ucu.Poo.DiscordBot.ClasesUtilizadas.Characters.Strategy_Ataque;
+using Ucu.Poo.Pokemon;
 
 namespace Program.Tests.Combate;
 
@@ -317,6 +318,21 @@ public class UnitTest
         int vidaesperadadefensor = 85 - 20 ;
         double vidaObtenidaDefensor = menu.GetHpAtacante();
         Assert.That(vidaesperadadefensor,Is.EqualTo(vidaObtenidaDefensor));
+    }
+
+    [Test]
+    public void ProbarMovimientoDefensa()
+    {
+        string nombreesperado = "Escudo Epico";
+        int defensaesperada = 50;
+        Tipo tipoesperado = new Tipo("Hielo");
+        
+        MovimientoDeDefensa movimiento = new MovimientoDeDefensa(nombreesperado, defensaesperada, tipoesperado);
+
+        // Assert
+        Assert.That(nombreesperado, Is.EqualTo(movimiento.GetName()));
+        Assert.That(defensaesperada,Is.EqualTo(movimiento.GetDefensa()));
+        Assert.That(tipoesperado, Is.EqualTo(movimiento.GetTipo()));
     }
 }
 

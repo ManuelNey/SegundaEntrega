@@ -80,7 +80,7 @@ public class Facade
             return $"{displayName} no está en la lista de espera";
         }
     }
-
+    
     /// <summary>
     /// Obtiene la lista de jugadores esperando.
     /// </summary>
@@ -270,4 +270,21 @@ public class Facade
         return Menu.GetNamePokemonD();
     }
 
+    public string Rendirse()
+    {
+        return this.Menu.Rendirse();
+    }
+
+    public string RecibirLista()
+    {
+        int num = 0;
+        string textohistorial = "";
+        foreach (string movimiento in Menu.EnviarLista())
+        {
+            num += 1;
+            textohistorial += $"{num}.{movimiento}";
+        }
+
+        return textohistorial;
+    }
 }

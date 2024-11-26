@@ -275,5 +275,20 @@ namespace Library.Combate
             Turnos = !Turnos;
             return $"Ahora es turno de {JugadorAtacante.GetName()} \n";
         }
+
+        public string Rendirme()
+        {
+            if (BatallaTerminada)
+            {
+                return "La batalla ya terminó";
+            }
+            if (!BatallaIniciada)
+            {
+                return "La batalla no inició aún";
+            }
+
+            return this.JugadorAtacante.Rendirme()+this.TerminarBatalla();
+        }
+        
     }
 }

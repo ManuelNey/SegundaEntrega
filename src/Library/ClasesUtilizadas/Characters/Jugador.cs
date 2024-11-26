@@ -249,4 +249,10 @@ public class Jugador
     {
         return inventarioJugador.MostrarItems();
     }
+
+    public string Rendirme()
+    {
+        this.teamIsAlive = false;
+        return $"{this.name} se ha rendido por voluntad propia\n";
+    }
 }

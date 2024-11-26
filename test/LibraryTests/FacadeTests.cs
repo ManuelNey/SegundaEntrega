@@ -117,4 +117,27 @@ public class FacadeTests
         
         Assert.That(result, Is.EqualTo("Comienza user vs opponent\n"+"user tu empezaras el combate\n"+"opponent te va tocar esperar, empieza tu oponente"));
     }
+    
+    [Test]
+    public void RendirseEnBatalla()
+    {
+        Facade.Instance.StartBattle("ASH", "RED");
+        Facade.Instance.AddPokemosA("Squirtle");
+        Facade.Instance.AddPokemosD("Charmander");
+        Facade.Instance.InitializeBattle();
+
+        Assert.That(Facade.Instance.Rendirse(), Is.EqualTo($"ASH se ha rendido por voluntad propia\n"+"¡Ha ganado el jugador RED! \n"+"La batalla ha terminado"));
+    }
+
+    [Test]
+    public void GetHistorial()
+    {
+        Facade.Instance.StartBattle("ash", "red");
+        Facade.Instance.AddPokemosA("Squirtle");
+        Facade.Instance.AddPokemosD("Charmander");
+        Facade.Instance.InitializeBattle();
+        Facade.Instance.UsePokemonMove(1);
+        
+        Assert.That(Facade.Instance.RecibirLista(),Is.EqualTo($"1.red ha usado Squirtle que ha usado Hidropulso.Y ha hacertado. El pokemon Charmander se ha debilitado, por que no podrá combatir más\n"));
+    }
 }

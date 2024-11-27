@@ -109,12 +109,5 @@ public class MovimientoEspecial : IMovimientoEspecial
     {
         return Efecto;
     }
-    public void SetStrategyParalisis(IEfectoParalisisStrategy efecto)
-    {
-        if (Efecto is Paralizar paralizar)
-        {
-            paralizar.SetStrategyParalisis(efecto);
-        }
-    }
     
 }

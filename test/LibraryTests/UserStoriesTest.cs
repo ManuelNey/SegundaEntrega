@@ -5,6 +5,7 @@ using Library.Combate;
 using Library.Tipos;
 // using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
+using Ucu.Poo.DiscordBot.ClasesUtilizadas.Characters.Strategy_Ataque;
 using Ucu.Poo.DiscordBot.Domain;
 
 namespace Program.Tests.Combate;
@@ -290,6 +291,9 @@ public class UserStoriesTests
         Facade.Instance.AddPokemosA("Charmander");
         Facade.Instance.InitializeBattle();
         Facade.Instance.ChangePokemon(1); // Cambia a Charmander
+        Facade.Instance.Menu.SetStrategyPresicion(new StrategyPreciso());
+        Pokemon pokemon = Facade.Instance.Menu.GetPokemonRival();
+        pokemon.SetStrategy(new AtaqueNoCritico());
         Facade.Instance.UsePokemonMove(2);//Pikachu usa rayo, danio de rayo: 65, defensa de Charmander: vida 85, defensa: 60
         
         Assert.That(vidaCharmanderRestanteEsperada,Is.EqualTo(Facade.Instance.Menu.GetHpAtacante())); // Verificar que la vida de Charmander es la esperada
@@ -371,6 +375,9 @@ public class UserStoriesTests
         Facade.Instance.AddPokemosA("Arbok");
         Facade.Instance.AddPokemosD("Squirtle");
         Facade.Instance.InitializeBattle();
+        Facade.Instance.Menu.SetStrategyPresicion(new StrategyPreciso());
+        Pokemon pokemon = Facade.Instance.Menu.GetPokemonRival();
+        pokemon.SetStrategy(new AtaqueNoCritico());
         Facade.Instance.UsePokemonMove(1);
         double vidaesperadasquirtle = 66;
         double vidadada = Facade.Instance.Menu.GetHpAtacante();

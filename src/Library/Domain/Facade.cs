@@ -48,7 +48,7 @@ public class Facade
     private WaitingList WaitingList { get; }
     
     private BattlesList BattlesList { get; }
-    public Menu Menu { get; }
+    public Menu Menu { get; private set; }
 
     /// <summary>
     /// Agrega un jugador a la lista de espera.
@@ -138,6 +138,7 @@ public class Facade
     /// <returns>Un mensaje con el resultado.</returns>
     public string StartBattle(string playerDisplayName, string? opponentDisplayName)
     {
+        Menu = new Menu();
         //Une a los jugadores a la partida de manera aleatoria
         string result = this.Menu.UnirJugadores(playerDisplayName);
         result += "\n" + this.Menu.UnirJugadores(opponentDisplayName);

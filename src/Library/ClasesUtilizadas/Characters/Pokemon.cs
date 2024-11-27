@@ -233,7 +233,7 @@ public class Pokemon
     {
         if (estado == null)
         {
-            estado = Efecto.CrearCopia(efecto.GetType()); // Usa el tipo del efecto para crear una nueva instancia
+            estado = Efecto.CrearCopia(efecto); // Usa el tipo del efecto para crear una nueva instancia
             return $"\n{GetName()} caído bajo el efecto {efecto.GetType().Name}\n";
         }
 

@@ -28,5 +28,4 @@ public interface IMovimientoEspecial : IMovimientoAtaque
     /// <returns>El efecto que se aplica cuando el movimiento especial es utilizado.</returns>
     Efecto GetEfecto();
 
-    public void SetStrategyParalisis(IEfectoParalisisStrategy efecto);
 }

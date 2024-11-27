@@ -22,22 +22,7 @@ internal static class Program
     {
         
         //DemoFacade();
-        //DemoBot();
-        Menu menu = new Menu();
-        menu.UnirJugadores("player1");
-        menu.UnirJugadores("player2");
-        menu.AgregarPokemonesA("Pikachu");
-        menu.AgregarPokemonesD("Charmander");
-        menu.IniciarEnfrentamiento();
-        Pokemon pikachu = menu.GetPokemonActual();
-        IMovimiento rayo = pikachu.GetListaMovimientos()[0];
-        if (rayo is IMovimientoEspecial especial)
-        {
-            especial.SetStrategyParalisis(new EfectoParalisisTrue());
-            string mensaje= menu.UsarMovimientos(1);
-            Console.WriteLine(mensaje);
-        }
-
+        DemoBot();
     }
 
     private static void DemoFacade()

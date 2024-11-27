@@ -24,6 +24,10 @@ public class Paralizar:Efecto
     {
         this.paralisisEfecto = efecto;
     }
+    public IEfectoParalisisStrategy GetStrategyParalisis()
+    {
+        return paralisisEfecto;
+    }
 
     /// <summary>  
     /// Aplica el efecto de paralización al Pokémon.  

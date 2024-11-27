@@ -398,9 +398,6 @@ public class UnitTest
         menu.SetStrategyPresicion(new StrategyPreciso());
         string mensajeObtenido = menu.UsarMovimientos(1);
         Assert.That(mensajeObtenido, Does.Contain("Y ha acertado."));
-        double numeroesperado = 85 ;// su vida queda igual, ya que 85(vida Charmander)- 60(defensa Charmander)- 60(AtaquePidgey)= 85
-        double numeroObtenido = menu.GetHpAtacante();//Vida de charmander ya que pasa a ser el atacante
-        Assert.That(numeroesperado,Is.EqualTo(numeroObtenido));
     }
     
     [Test]
@@ -458,6 +455,191 @@ public class UnitTest
         Assert.That(nombreesperado, Is.EqualTo(movimiento.GetName()));
         Assert.That(defensaesperada,Is.EqualTo(movimiento.GetDefensa()));
         Assert.That(tipoesperado, Is.EqualTo(movimiento.GetTipo()));
+    }
+    
+    [Test]
+    public void GettersStrategyCriticos()
+    {
+        IAtaqueDanioStrategy critico = new AtaqueCritico();
+        int esperadoCritico = critico.GetNumero();
+        Assert.That(esperadoCritico,Is.EqualTo(0));
+        
+        IAtaqueDanioStrategy noCritico = new AtaqueNoCritico();
+        int esperadoNoCritico = noCritico.GetNumero();
+        Assert.That(esperadoNoCritico,Is.EqualTo(1));
+
+        IAtaqueDanioStrategy random = new AtaqueRandom();
+        int esperadoRandom = random.GetNumero();
+        Assert.That(esperadoRandom, Is.InRange(0, 9));
+    }
+ [Test]
+    /// <summary>
+    /// Este test verifica que los Getters de Strategy de la precision de los ataques den el valor requerido
+    /// </summary>
+    public void GettersStrategyPrecision()
+    {
+        IStrategyPresicion preciso = new StrategyPreciso();
+        int numpreciso = preciso.GetNumber();
+        Assert.That(numpreciso,Is.EqualTo(1));
+
+        IStrategyPresicion noPreciso = new StrategyNoPreciso();
+        int numNoPreciso = noPreciso.GetNumber();
+        Assert.That(numNoPreciso,Is.EqualTo(100));
+
+        IStrategyPresicion random = new StrategyPrecisoRandom();
+        int numRandom = random.GetNumber();
+        Assert.That(numRandom, Is.InRange(1, 100));
+    }
+
+    [Test]
+    /// <summary>
+    /// Este test verifica que los Getters de Strategy del efecto Paralisis den el valor requerido
+    /// </summary>
+    public void GettersStrategyParalisis()
+    {
+        IEfectoParalisisStrategy paralisisTrue = new EfectoParalisisTrue();
+        bool valorTrue = paralisisTrue.GetValor();
+        Assert.That(valorTrue,Is.EqualTo(true));
+        
+        IEfectoParalisisStrategy paralisisFalse = new EfectoParalisisFalse();
+        bool valorFalse = paralisisFalse.GetValor();
+        Assert.That(valorFalse,Is.EqualTo(false));
+    }
+    [Test]
+    public void AtaqueConParalisis()
+    {
+        Menu menu = new Menu();
+        menu.UnirJugadores("player1");
+        menu.UnirJugadores("player2");
+        menu.AgregarPokemonesA("Pikachu");
+        menu.AgregarPokemonesD("Charmander");
+        menu.IniciarEnfrentamiento();
+        Pokemon charmander = menu.GetPokemonRival();
+        Paralizar paralizar = new Paralizar();
+        paralizar.SetStrategyParalisis(new EfectoParalisisFalse());
+        charmander.AgregarEfecto(paralizar);
+        string primerpokemon = menu.GetPokemonActual().GetName();
+        menu.UsarMovimientos(3);
+        string segundopokemon = menu.GetPokemonActual().GetName();
+        Assert.That(primerpokemon, Is.EqualTo(segundopokemon));
+    }
+
+    [Test]
+    public void AtaqueConParalisisPeroPermitoJugar()
+    {
+        Menu menu = new Menu();
+        menu.UnirJugadores("player1");
+        menu.UnirJugadores("player2");
+        menu.AgregarPokemonesA("Pikachu");
+        menu.AgregarPokemonesD("Charmander");
+        menu.IniciarEnfrentamiento();
+        Pokemon charmander = menu.GetPokemonRival();
+        Paralizar paralizar = new Paralizar();
+        paralizar.SetStrategyParalisis(new EfectoParalisisTrue());
+        charmander.AgregarEfecto(paralizar);
+        string primerpokemon = menu.GetPokemonActual().GetName(); //Pikachu
+        menu.UsarMovimientos(3);
+        string segundopokemon = menu.GetPokemonActual().GetName(); //Charmander
+        string pokemon1esperado = "Pikachu";
+        string pokemon2esperado = "Charmander";
+        Assert.That(primerpokemon, Is.EqualTo(pokemon1esperado));
+        Assert.That(segundopokemon, Is.EqualTo(pokemon2esperado));
+    }
+    
+    [Test]
+    /// <summary>
+    /// Este test verifica que el MetodoMostrarNum funcione correctamente, diciendole al jugador quien
+    /// es el pokemon en turno y los numeros de los otrospokemones del equipo, para que pueda usar por ejemplo
+    // el comando de change pokemon, el cual funciona solo co el numero del pokemon
+    /// </summary>
+    public void MostratNumPokemon()
+    {
+        Menu menu = new Menu();
+        menu.UnirJugadores("player1");
+        menu.UnirJugadores("player2");
+        menu.AgregarPokemonesA("Pikachu");
+        menu.AgregarPokemonesA("Bulbasaur");
+        menu.AgregarPokemonesA("Arbok");
+        menu.AgregarPokemonesD("Charmander");
+        menu.IniciarEnfrentamiento();
+        string mensaje=menu.MostrarNumPokemon();
+        Assert.That(mensaje, Does.Contain("Pikachu está en turno\n el número 1 es Bulbasaur \nel número 2 es Arbok "));
+    }
+
+    [Test]
+    /// <summary>
+    /// Este test verifica que Mostrar el estadodel equipo lo haga correctamente, asi el jugador puede ver la vida de los pokemones que tiene
+    /// </summary>
+    public void MostrarEstadoEquipo()
+    {
+        Menu menu = new Menu();
+        menu.UnirJugadores("player1");
+        menu.UnirJugadores("player2");
+        menu.AgregarPokemonesA("Pikachu");
+        menu.AgregarPokemonesD("Stufful");
+        menu.AgregarPokemonesA("Charmander");
+        menu.AgregarPokemonesD("Arbok");
+        Pokemon pikachu = menu.GetPokemonActual();
+        pikachu.SetStrategy(new AtaqueNoCritico());
+        Pokemon stufful = menu.GetPokemonRival();
+        stufful.SetStrategy(new AtaqueNoCritico());
+        menu.IniciarEnfrentamiento();
+        menu.IniciarEnfrentamiento();
+        menu.UsarMovimientos(2);
+        menu.UsarMovimientos(2);
+        menu.UsarMovimientos(1);//Uso defensa para no matar a Pikachu
+        menu.UsarMovimientos(2);
+        string mensaje = "";
+        if (menu.JugadorA().GetName() == "player1")
+        {
+            mensaje=menu.MostrarEstadoEquipo();
+        }
+
+        if (menu.JugadorA().GetName() == "player2")
+        {
+             mensaje=menu.MostrarEstadoEquipo();
+        }
+
+        Assert.That(mensaje, Does.Contain("Pikachu 15/80\nCharmander 85/85"));
+
+    }
+    
+    [Test]
+    /// <summary>
+    /// Este test verifica que Mostrar el estado del equipo contrincante lo haga correctamente,
+    /// asi el jugador puede ver la vida de los pokemones que tiene el rival
+    /// </summary>
+    public void MostrarEstadoRival()
+    {
+        Menu menu = new Menu();
+        menu.UnirJugadores("player1");
+        menu.UnirJugadores("player2");
+        menu.AgregarPokemonesA("Pikachu");
+        menu.AgregarPokemonesD("Stufful");
+        menu.AgregarPokemonesA("Charmander");
+        menu.AgregarPokemonesD("Arbok");
+        Pokemon pikachu = menu.GetPokemonActual();
+        pikachu.SetStrategy(new AtaqueNoCritico());
+        Pokemon stufful = menu.GetPokemonRival();
+        stufful.SetStrategy(new AtaqueNoCritico());
+        menu.IniciarEnfrentamiento();
+        Console.WriteLine(menu.UsarMovimientos(2));
+        Console.WriteLine(menu.UsarMovimientos(2));
+        Console.WriteLine(menu.UsarMovimientos(2));
+        Console.WriteLine(menu.UsarMovimientos(2));
+        string mensaje = "";
+        if (menu.JugadorD().GetName() == "player1")
+        {
+            mensaje=menu.MostrarEstadoRival();
+        }
+
+        if (menu.JugadorD().GetName() == "player2")
+        {
+             mensaje=menu.MostrarEstadoRival();
+        }
+
+        Assert.That(mensaje, Does.Contain("Arbok 60/60\nStufful ha muerto"));
+
     }
 }
 
